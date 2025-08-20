@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export default function ActivateAccountPage() {
+function ActivateAccountForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -49,9 +50,7 @@ export default function ActivateAccountPage() {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-2 text-sm font-medium">
-              New Password
-            </label>
+            <label className="block mb-2 text-sm font-medium">New Password</label>
             <input
               type="password"
               className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none"
@@ -62,9 +61,7 @@ export default function ActivateAccountPage() {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium">
-              Confirm Password
-            </label>
+            <label className="block mb-2 text-sm font-medium">Confirm Password</label>
             <input
               type="password"
               className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none"
@@ -84,5 +81,13 @@ export default function ActivateAccountPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function ActivateAccountPage() {
+  return (
+    <Suspense fallback={<div className="text-white text-center mt-20">Loading...</div>}>
+      <ActivateAccountForm />
+    </Suspense>
   );
 }

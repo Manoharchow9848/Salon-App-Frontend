@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,6 @@ export default function ResetPassword() {
       setTimeout(() => router.push("/login"), 2000);
     } catch (error) {
       console.log(error, "error");
-
       setMessage(
         error.response?.data?.message || "Something went wrong. Try again!"
       );
@@ -41,14 +41,14 @@ export default function ResetPassword() {
     <div className="flex justify-center items-center min-h-screen bg-black">
       <form
         onSubmit={handleSubmit}
-        className=" p-8 bg-black rounded-lg shadow-md w-96"
+        className="p-8 bg-black rounded-lg shadow-md w-96 text-white"
       >
-        <h1 className="text-2xl  font-bold mb-4">Reset Password</h1>
+        <h1 className="text-2xl font-bold mb-4">Reset Password</h1>
 
         <input
           type="password"
           placeholder="New Password"
-          className="w-full border px-3 py-2 rounded mb-3"
+          className="w-full border px-3 py-2 rounded mb-3 text-black"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -57,11 +57,15 @@ export default function ResetPassword() {
         <input
           type="password"
           placeholder="Confirm Password"
-          className="w-full border px-3 py-2 rounded mb-3"
+          className="w-full border px-3 py-2 rounded mb-3 text-black"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
+
+        {message && (
+          <p className="mb-3 text-sm text-center text-gray-300">{message}</p>
+        )}
 
         <button
           type="submit"
@@ -72,5 +76,13 @@ export default function ResetPassword() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<div className="text-white text-center mt-20">Loading...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

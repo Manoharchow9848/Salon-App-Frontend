@@ -1,13 +1,15 @@
 "use client";
+
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 
-export default function PaymentResultPage() {
+function PaymentResultContent() {
   const sp = useSearchParams();
   const orderId = sp.get("orderId");
-  const status = sp.get("status"); 
+  const status = sp.get("status");
   const { checkAuth } = useAuthStore();
+
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -28,5 +30,13 @@ export default function PaymentResultPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function PaymentResultPage() {
+  return (
+    <Suspense fallback={<div className="text-white text-center mt-20">Loading...</div>}>
+      <PaymentResultContent />
+    </Suspense>
   );
 }
