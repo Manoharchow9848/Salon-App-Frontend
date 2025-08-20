@@ -87,13 +87,13 @@ const Page = () => {
                 <p className="text-white">
                   <span className="font-medium">Staff Name</span>{" "}
                   <span className="px-2 py-1 rounded text-sm bg-green-100 text-green-700">
-                    {appointment.staff.name}
+                    {appointment?.staff?.name}
                   </span>
                 </p>
                 <p className="text-white">
                   <span className="font-medium">Staff Email</span>{" "}
                   <span className="px-2 py-1 rounded text-sm bg-green-100 text-green-700">
-                    {appointment.staff.email}
+                    {appointment?.staff?.email}
                   </span>
                 </p>
               </div>
