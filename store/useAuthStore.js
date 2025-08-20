@@ -93,6 +93,8 @@ export const useAuthStore = create((set, get) => ({
         },
       });
       set({ appointments: res.data });
+      console.log(res.data);
+      
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Failed to fetch appointments"
